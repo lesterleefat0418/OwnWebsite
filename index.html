@@ -53,11 +53,11 @@
             <div class="col-lg-9 col-md-12 text-end">
                 <div class="h-100 d-inline-flex align-items-center me-4">
                     <i class="fa fa-map-marker-alt text-primary me-2"></i>
-                    <p class="m-0">Kwai Tsing, New Territories, Hong Kong</p>
+                    <p class="m-0" id="address">NA</p>
                 </div>
                 <div class="h-100 d-inline-flex align-items-center me-4">
                     <i class="far fa-envelope-open text-primary me-2"></i>
-                    <p class="m-0">leefat0418@gmail.com</p>
+                    <p class="m-0" id="email">NA</p>
                 </div>
                 <div class="h-100 d-inline-flex align-items-center">
                     <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-facebook-f"></i></a>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="ms-3">
                         <p class="mb-1 text-white">Contact Number:</p>
-                        <h5 class="m-0 text-secondary">+852 67464970</h5>
+                        <h5 class="m-0 text-secondary" id="phone">NA</h5>
                     </div>
                 </div>
             </div>
@@ -200,7 +200,7 @@
         </div>
     </div>
 
-    <!-- About Start -->
+    <!-- About skills -->
     <div class="container-xxl py-5">
         <div class="container">
             <div class="row g-5">
@@ -223,7 +223,7 @@
                         </div>
                         <div class="ms-3">
                             <p class="fs-5 fw-medium mb-2 text-white">Contact No.</p>
-                            <h3 class="m-0 text-secondary">+852 67464970</h3>
+                            <h3 class="m-0 text-secondary" id="phone">NA</h3>
                         </div>
                     </div>
                 </div>
@@ -236,7 +236,7 @@
             </div>
         </div>
     </div>
-    <!-- About End -->
+    <!-- About Skills End -->
 
 
     <!-- Fact Start -->
@@ -566,8 +566,8 @@
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">Address</h4>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Kwai Tsing, New Territories, Hong Kong</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+852 67464970</p>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i><span id="address">NA</span></p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><span id="phone">NA</span></p>
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i>leefat0418@gmail.com</p>
                     <div class="d-flex pt-2">
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
@@ -604,7 +604,7 @@
             <div class="copyright">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom" href="#">lesterleefat</a>, All Right Reserved.
+                        &copy; <a class="border-bottom" href="#" id="siteName">NA</a>, All Right Reserved.
                     </div>
                     <!--<div class="col-md-6 text-center text-md-end">
                         /*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/
@@ -635,6 +635,7 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script src="js/variable.js"></script>
 </body>
 
 </html>
