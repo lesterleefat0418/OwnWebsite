@@ -129,6 +129,7 @@ function enableCam(event) {
     if (webcamRunning === true) {
         webcamRunning = false;
         enableWebcamButton.innerText = "ENABLE PREDICTIONS";
+        canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
     }
     else {
         webcamRunning = true;
@@ -166,6 +167,9 @@ async function predictWebcam() {
         lastVideoTime = video.currentTime;
         results = faceLandmarker.detectForVideo(video, startTimeMs);
     }
+
+    canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+    
     if (results.faceLandmarks) {
         for (const landmarks of results.faceLandmarks) {
             drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_TESSELATION, { color: "#C0C0C070", lineWidth: 1 });
