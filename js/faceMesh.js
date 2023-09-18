@@ -25,6 +25,25 @@ async function createFaceLandmarker() {
     //demosSection.classList.remove("invisible");
 }
 createFaceLandmarker();
+
+async function getSupportedResolutions() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const track = stream.getVideoTracks()[0];
+      const capabilities = track.getCapabilities();
+      const supportedResolutionsWidth = capabilities.width;
+      const supportedResolutionsHeight = capabilities.height;
+      console.log(supportedResolutionsWidth);
+      console.log(supportedResolutionsHeight);
+
+      if(supportedResolutionsWidth.max < videoWidth) {
+         videoWidth = supportedResolutionsWidth.max;
+      }
+
+    } catch (error) {
+      console.error("Error accessing camera:", error);
+    }
+}
 /*
 const imageContainers = document.getElementsByClassName("detectOnClick");
 // Now let's go through all of these and add a click event listener.
@@ -104,26 +123,7 @@ function enableCam(event) {
         console.log("Wait! faceLandmarker not loaded yet.");
         return;
     }
-
-    async function getSupportedResolutions() {
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-          const track = stream.getVideoTracks()[0];
-          const capabilities = track.getCapabilities();
-          const supportedResolutionsWidth = capabilities.width;
-          const supportedResolutionsHeight = capabilities.height;
-          console.log(supportedResolutionsWidth);
-          console.log(supportedResolutionsHeight);
-
-          if(supportedResolutionsWidth.max < videoWidth) {
-             videoWidth = supportedResolutionsWidth.max;
-          }
-
-        } catch (error) {
-          console.error("Error accessing camera:", error);
-        }
-      }
-      
+     
     getSupportedResolutions();
 
     if (webcamRunning === true) {
