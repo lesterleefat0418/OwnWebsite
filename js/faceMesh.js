@@ -7,7 +7,7 @@ let faceLandmarker;
 let runningMode = "VIDEO";
 let enableWebcamButton;
 let webcamRunning = false;
-const videoWidth = 1280;
+let videoWidth = 1280;
 // Before we can use HandLandmarker class we must wait for it to finish
 // loading. Machine Learning models can be large and take a moment to
 // get everything needed to run.
@@ -104,6 +104,28 @@ function enableCam(event) {
         console.log("Wait! faceLandmarker not loaded yet.");
         return;
     }
+
+    async function getSupportedResolutions() {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+          const track = stream.getVideoTracks()[0];
+          const capabilities = track.getCapabilities();
+          const supportedResolutionsWidth = capabilities.width;
+          const supportedResolutionsHeight = capabilities.height;
+          console.log(supportedResolutionsWidth);
+          console.log(supportedResolutionsHeight);
+
+          if(supportedResolutionsWidth.max < videoWidth) {
+             videoWidth = supportedResolutionsWidth.max;
+          }
+
+        } catch (error) {
+          console.error("Error accessing camera:", error);
+        }
+      }
+      
+    getSupportedResolutions();
+
     if (webcamRunning === true) {
         webcamRunning = false;
         enableWebcamButton.innerText = "ENABLE PREDICTIONS";
