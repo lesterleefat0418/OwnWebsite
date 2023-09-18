@@ -585,3 +585,22 @@
 .footer .copyright a {
     color: var(--light);
 }
+
+.webcam {
+    border: 5px groove black;
+    background:black;
+    width:100%;
+    height: auto;
+    max-width:93.5vw; 
+    max-height: 70.5vw;
+  }
+  
+.output_canvas {
+    position: absolute;
+    left: 0px; 
+    top: 0px; 
+    width:100%;
+    height:auto;
+    max-width:93.5vw; 
+    max-height: 70.5vw
+  }

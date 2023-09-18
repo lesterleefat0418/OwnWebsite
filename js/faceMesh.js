@@ -133,6 +133,7 @@ async function predictWebcam() {
     canvasElement.style.height = videoWidth * radio + "px";
     canvasElement.width = video.videoWidth;
     canvasElement.height = video.videoHeight;
+
     // Now let's start detecting the stream.
     if (runningMode === "IMAGE") {
         runningMode = "VIDEO";
