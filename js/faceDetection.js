@@ -45,7 +45,8 @@ faceMesh.setOptions({
   maxNumFaces: 1,
   refineLandmarks: true,
   minDetectionConfidence: 0.5,
-  minTrackingConfidence: 0.5
+  minTrackingConfidence: 0.5,
+  runtime: 'cpu'
 });
 faceMesh.onResults(onResults);
 function processVideo() {
