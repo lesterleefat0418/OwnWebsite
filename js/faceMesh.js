@@ -113,7 +113,7 @@ let results = undefined;
 const drawingUtils = new DrawingUtils(canvasCtx);
 async function predictWebcam() {
     videoAspectRatio = video.videoWidth / video.videoHeight;
-    console.log("videoAspectRatio: ", videoAspectRatio);
+    //console.log("videoAspectRatio: ", videoAspectRatio);
     video.style.width = videoWidth + "px";
     video.style.height = videoHeight * videoAspectRatio + "px";
     canvasElement.style.width = videoWidth + "px";
@@ -121,6 +121,8 @@ async function predictWebcam() {
     canvasElement.width = video.videoWidth;
     canvasElement.height = video.videoHeight;
 
+    console.log("camera.width: ", canvasElement.width);
+    console.log("camera.height: ", canvasElement.height);
 
     // Now let's start detecting the stream.
     if (runningMode === "IMAGE") {
