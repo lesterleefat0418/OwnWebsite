@@ -7,7 +7,9 @@ let faceLandmarker;
 let runningMode = "VIDEO";
 let enableWebcamButton;
 let webcamRunning = false;
-let videoWidth = 1280;
+
+let videoWidth, videoHeight;
+
 // Check if webcam access is supported.
 function hasGetUserMedia() {
     return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
@@ -24,7 +26,10 @@ async function getSupportedResolutions() {
         else {
             console.warn("getUserMedia() is not supported by your browser");
         }
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const constraints = {
+            video: true
+          };
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
         const track = stream.getVideoTracks()[0];
         const capabilities = track.getCapabilities();
         const supportedResolutionsWidth = capabilities.width;
@@ -32,9 +37,19 @@ async function getSupportedResolutions() {
         console.log(supportedResolutionsWidth);
         console.log(supportedResolutionsHeight);
 
-        if(supportedResolutionsWidth.max < videoWidth) {
-            videoWidth = supportedResolutionsWidth.max;
+        console.log("screen.width: ", screen.width);
+        console.log("screen.height: ", screen.height);
+        if(screen.width < screen.height) {
+            videoWidth = 720;
+            videoHeight = 1280;
         }
+        else {
+            videoWidth = 1280;
+            videoHeight = 720;
+        }
+
+        console.log("videoWidth: ", videoWidth);
+        console.log("videoHeight: ", videoHeight);
 
     } catch (error) {
       console.error("Error accessing camera:", error);
@@ -65,6 +80,8 @@ const video = document.getElementById("webcam");
 const canvasElement = document.getElementById("output_canvas");
 const canvasCtx = canvasElement.getContext("2d");
 
+let videoAspectRatio;
+
 // Enable the live webcam view and start detection.
 function enableCam(event) {
     if (!faceLandmarker) {
@@ -75,7 +92,6 @@ function enableCam(event) {
     if (webcamRunning === true) {
         webcamRunning = false;
         enableWebcamButton.innerText = "ENABLE PREDICTIONS";
-        canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
     }
     else {
         webcamRunning = true;
@@ -91,17 +107,20 @@ function enableCam(event) {
         video.addEventListener("loadeddata", predictWebcam);
     });
 }
+
 let lastVideoTime = -1;
 let results = undefined;
 const drawingUtils = new DrawingUtils(canvasCtx);
 async function predictWebcam() {
-    const radio = video.videoHeight / video.videoWidth;
+    videoAspectRatio = video.videoWidth / video.videoHeight;
+    console.log("videoAspectRatio: ", videoAspectRatio);
     video.style.width = videoWidth + "px";
-    video.style.height = videoWidth * radio + "px";
+    video.style.height = videoHeight * videoAspectRatio + "px";
     canvasElement.style.width = videoWidth + "px";
-    canvasElement.style.height = videoWidth * radio + "px";
+    canvasElement.style.height = videoHeight * videoAspectRatio + "px";
     canvasElement.width = video.videoWidth;
     canvasElement.height = video.videoHeight;
+
 
     // Now let's start detecting the stream.
     if (runningMode === "IMAGE") {
@@ -113,8 +132,6 @@ async function predictWebcam() {
         lastVideoTime = video.currentTime;
         results = faceLandmarker.detectForVideo(video, startTimeMs);
     }
-
-    canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
     
     if (results.faceLandmarks) {
         for (const landmarks of results.faceLandmarks) {
