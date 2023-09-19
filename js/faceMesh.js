@@ -8,6 +8,40 @@ let runningMode = "VIDEO";
 let enableWebcamButton;
 let webcamRunning = false;
 let videoWidth = 1280;
+// Check if webcam access is supported.
+function hasGetUserMedia() {
+    return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+}
+
+async function getSupportedResolutions() {
+    try {
+    // If webcam supported, add event listener to button for when user
+    // wants to activate it.
+        if (hasGetUserMedia()) {
+            enableWebcamButton = document.getElementById("webcamButton");
+            enableWebcamButton.addEventListener("click", enableCam);
+        }
+        else {
+            console.warn("getUserMedia() is not supported by your browser");
+        }
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const track = stream.getVideoTracks()[0];
+        const capabilities = track.getCapabilities();
+        const supportedResolutionsWidth = capabilities.width;
+        const supportedResolutionsHeight = capabilities.height;
+        console.log(supportedResolutionsWidth);
+        console.log(supportedResolutionsHeight);
+
+        if(supportedResolutionsWidth.max < videoWidth) {
+            videoWidth = supportedResolutionsWidth.max;
+        }
+
+    } catch (error) {
+      console.error("Error accessing camera:", error);
+    }
+}
+getSupportedResolutions();
+
 // Before we can use HandLandmarker class we must wait for it to finish
 // loading. Machine Learning models can be large and take a moment to
 // get everything needed to run.
@@ -26,97 +60,11 @@ async function createFaceLandmarker() {
 }
 createFaceLandmarker();
 
-async function getSupportedResolutions() {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      const track = stream.getVideoTracks()[0];
-      const capabilities = track.getCapabilities();
-      const supportedResolutionsWidth = capabilities.width;
-      const supportedResolutionsHeight = capabilities.height;
-      console.log(supportedResolutionsWidth);
-      console.log(supportedResolutionsHeight);
 
-      if(supportedResolutionsWidth.max < videoWidth) {
-         videoWidth = supportedResolutionsWidth.max;
-      }
-
-    } catch (error) {
-      console.error("Error accessing camera:", error);
-    }
-}
-/*
-const imageContainers = document.getElementsByClassName("detectOnClick");
-// Now let's go through all of these and add a click event listener.
-for (let imageContainer of imageContainers) {
-    // Add event listener to the child element whichis the img element.
-    imageContainer.children[0].addEventListener("click", handleClick);
-}
-// When an image is clicked, let's detect it and display results!
-async function handleClick(event) {
-    if (!faceLandmarker) {
-        console.log("Wait for faceLandmarker to load before clicking!");
-        return;
-    }
-    if (runningMode === "VIDEO") {
-        runningMode = "IMAGE";
-        await faceLandmarker.setOptions({ runningMode });
-    }
-    // Remove all landmarks drawed before
-    const allCanvas = event.target.parentNode.getElementsByClassName("canvas");
-    for (var i = allCanvas.length - 1; i >= 0; i--) {
-        const n = allCanvas[i];
-        n.parentNode.removeChild(n);
-    }
-    // We can call faceLandmarker.detect as many times as we like with
-    // different image data each time. This returns a promise
-    // which we wait to complete and then call a function to
-    // print out the results of the prediction.
-    const faceLandmarkerResult = faceLandmarker.detect(event.target);
-    const canvas = document.createElement("canvas");
-    canvas.setAttribute("class", "canvas");
-    canvas.setAttribute("width", event.target.naturalWidth + "px");
-    canvas.setAttribute("height", event.target.naturalHeight + "px");
-    canvas.style.left = "0px";
-    canvas.style.top = "0px";
-    canvas.style.width = `${event.target.width}px`;
-    canvas.style.height = `${event.target.height}px`;
-    event.target.parentNode.appendChild(canvas);
-    const ctx = canvas.getContext("2d");
-    const drawingUtils = new DrawingUtils(ctx);
-    for (const landmarks of faceLandmarkerResult.faceLandmarks) {
-        drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_TESSELATION, { color: "#C0C0C070", lineWidth: 1 });
-        drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_RIGHT_EYE, { color: "#FF3030" });
-        drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_RIGHT_EYEBROW, { color: "#FF3030" });
-        drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_LEFT_EYE, { color: "#30FF30" });
-        drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_LEFT_EYEBROW, { color: "#30FF30" });
-        drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_FACE_OVAL, { color: "#E0E0E0" });
-        drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_LIPS, {
-            color: "#E0E0E0"
-        });
-        drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_RIGHT_IRIS, { color: "#FF3030" });
-        drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_LEFT_IRIS, { color: "#30FF30" });
-    }
-    drawBlendShapes(imageBlendShapes, faceLandmarkerResult.faceBlendshapes);
-}*/
-/********************************************************************
-// Demo 2: Continuously grab image from webcam stream and detect it.
-********************************************************************/
 const video = document.getElementById("webcam");
 const canvasElement = document.getElementById("output_canvas");
 const canvasCtx = canvasElement.getContext("2d");
-// Check if webcam access is supported.
-function hasGetUserMedia() {
-    return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-}
-// If webcam supported, add event listener to button for when user
-// wants to activate it.
-if (hasGetUserMedia()) {
-    enableWebcamButton = document.getElementById("webcamButton");
-    enableWebcamButton.addEventListener("click", enableCam);
-}
-else {
-    console.warn("getUserMedia() is not supported by your browser");
-}
+
 // Enable the live webcam view and start detection.
 function enableCam(event) {
     if (!faceLandmarker) {
@@ -124,8 +72,6 @@ function enableCam(event) {
         return;
     }
      
-    getSupportedResolutions();
-
     if (webcamRunning === true) {
         webcamRunning = false;
         enableWebcamButton.innerText = "ENABLE PREDICTIONS";
