@@ -80,7 +80,7 @@ const video = document.getElementById("webcam");
 const canvasElement = document.getElementById("output_canvas");
 const canvasCtx = canvasElement.getContext("2d");
 
-let videoAspectRatio;
+let videoAspectRatio, screenAspectRatio;
 
 // Enable the live webcam view and start detection.
 function enableCam(event) {
@@ -112,17 +112,18 @@ let lastVideoTime = -1;
 let results = undefined;
 const drawingUtils = new DrawingUtils(canvasCtx);
 async function predictWebcam() {
+
     videoAspectRatio = video.videoWidth / video.videoHeight;
     //console.log("videoAspectRatio: ", videoAspectRatio);
-    video.style.width = videoWidth + "px";
-    video.style.height = videoHeight * videoAspectRatio + "px";
-    canvasElement.style.width = videoWidth + "px";
-    canvasElement.style.height = videoHeight * videoAspectRatio + "px";
+    //video.style.width = videoWidth + "px";
+    //video.style.height = videoHeight * videoAspectRatio + "px";
+    //canvasElement.style.width = videoWidth + "px";
+    //canvasElement.style.height = videoHeight * videoAspectRatio + "px";
     canvasElement.width = video.videoWidth;
     canvasElement.height = video.videoHeight;
 
-    console.log("camera.width: ", canvasElement.width);
-    console.log("camera.height: ", canvasElement.height);
+    //console.log("camera.width: ", canvasElement.width);
+    //console.log("camera.height: ", canvasElement.height);
 
     // Now let's start detecting the stream.
     if (runningMode === "IMAGE") {
