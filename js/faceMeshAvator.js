@@ -25,12 +25,12 @@ function createCameraPlaneMesh(camera, depth, material) {
     return new THREE.Mesh(cameraPlaneGeometry, material);
 }
 class BasicScene {
-    constructor() {
+    constructor(cameraWidth, cameraHeight) {
         this.lastTime = 0;
         this.callbacks = [];
         // Initialize the canvas with the same aspect ratio as the video input
         this.height = window.innerHeight;
-        this.width = (this.height * 1280) / 720;
+        this.width = (this.height * cameraWidth) / cameraHeight;
         // Set up the Three.js scene, camera, and renderer
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(60, this.width / this.height, 0.01, 5000);
@@ -195,10 +195,12 @@ class Avatar {
         }
     }
 }
+let cameraWidth, cameraHeight;
 let faceLandmarker;
 let video;
-const scene = new BasicScene();
-const avatar = new Avatar("model/raccoon_head.glb", scene.scene);
+let scene;
+let avatar;
+
 function detectFaceLandmarks(time) {
     if (!faceLandmarker) {
         return;
@@ -218,9 +220,6 @@ function detectFaceLandmarks(time) {
         avatar.updateBlendshapes(coefsMap);
     }
 
-    window.addEventListener("resize", function() {
-        scene.resize();
-    });
 }
 function retarget(blendshapes) {
     const categories = blendshapes[0].categories;
@@ -271,6 +270,16 @@ async function streamWebcamThroughFaceLandmarker() {
                 height: { min: 720, max: 1280},
             }
         });
+        const videoTrack = evt.getVideoTracks()[0];
+        const settings = videoTrack.getSettings();
+        cameraWidth = settings.width;
+        cameraHeight = settings.height;
+    
+        console.log("Camera Width:", cameraWidth);
+        console.log("Camera Height:", cameraHeight);
+        scene = new BasicScene(cameraWidth, cameraHeight);
+        avatar = new Avatar("model/raccoon_head.glb", scene.scene);
+
         onAcquiredUserMedia(evt);
         video.requestVideoFrameCallback(onVideoFrame);
     }
@@ -284,7 +293,7 @@ async function runDemo() {
     faceLandmarker = await FaceLandmarker.createFromModelPath(vision, "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/latest/face_landmarker.task");
     await faceLandmarker.setOptions({
         baseOptions: {
-            delegate: "GPU"
+            delegate: "CPU"
         },
         runningMode: "VIDEO",
         outputFaceBlendshapes: true,
