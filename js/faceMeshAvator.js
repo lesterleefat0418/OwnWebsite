@@ -217,6 +217,10 @@ function detectFaceLandmarks(time) {
         const coefsMap = retarget(blendshapes);
         avatar.updateBlendshapes(coefsMap);
     }
+
+    window.addEventListener("resize", function() {
+        scene.resize();
+    });
 }
 function retarget(blendshapes) {
     const categories = blendshapes[0].categories;
@@ -263,8 +267,8 @@ async function streamWebcamThroughFaceLandmarker() {
             audio: false,
             video: {
                 facingMode: "user",
-                width: 1280,
-                height: 720
+                width: { min: 720, max: 1280 },
+                height: { min: 720, max: 1280},
             }
         });
         onAcquiredUserMedia(evt);
