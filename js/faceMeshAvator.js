@@ -38,7 +38,7 @@ class BasicScene {
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(60, this.width / this.height, 0.01, 5000);
         var currentCanvas = document.getElementById('output_canvas');
-        var maxWidth = 60.5, maxHeight = 60.5;
+        var maxWidth = 93.5, maxHeight = 93.5;
         currentCanvas.style.maxWidth = maxWidth + "vw";
         currentCanvas.style.maxHeight = (maxHeight / (cameraWidth / cameraHeight)) + "vw";
         this.renderer = new THREE.WebGLRenderer({ antialias: true, canvas: currentCanvas});

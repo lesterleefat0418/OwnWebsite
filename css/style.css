@@ -591,8 +591,8 @@
     background:black;
     width:100%;
     height: auto;
-    max-width:93.5vw; 
-    max-height: 70.5vw;
+    /*max-width:93.5vw; 
+    max-height: 70.5vw;*/
   }
   
 .output_canvas {
@@ -605,6 +605,8 @@
     max-height: 70.5vw
   }
 
-  @media screen and (max-width: 500px) {
-  
-  }
+  .faceMesh {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
