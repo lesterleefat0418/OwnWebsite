@@ -50,6 +50,8 @@ class BasicScene {
         this.camera.position.z = 0;
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.controls.enableZoom = false;
+        this.controls.enablePan = false;
+        this.controls.enableRotate = false;
         let orbitTarget = this.camera.position.clone();
         orbitTarget.z -= 5;
         this.controls.target = orbitTarget;
