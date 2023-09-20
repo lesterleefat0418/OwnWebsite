@@ -29,12 +29,18 @@ class BasicScene {
         this.lastTime = 0;
         this.callbacks = [];
         // Initialize the canvas with the same aspect ratio as the video input
-        this.height = window.innerHeight;
-        this.width = (this.height * cameraWidth) / cameraHeight;
+        //this.height = window.innerHeight;
+        this.height = cameraHeight;
+        this.width = (this.height * cameraWidth) / this.height;
+        console.log("canvas width: ", this.width);
+        console.log("canvas height: ", this.height);
         // Set up the Three.js scene, camera, and renderer
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(60, this.width / this.height, 0.01, 5000);
         var currentCanvas = document.getElementById('output_canvas');
+        var maxWidth = 60.5, maxHeight = 60.5;
+        currentCanvas.style.maxWidth = maxWidth + "vw";
+        currentCanvas.style.maxHeight = (maxHeight / (cameraWidth / cameraHeight)) + "vw";
         this.renderer = new THREE.WebGLRenderer({ antialias: true, canvas: currentCanvas});
         this.renderer.setSize(this.width, this.height);
         THREE.ColorManagement.legacy = false;
@@ -68,7 +74,7 @@ class BasicScene {
         this.scene.add(inputFramesPlane);
         // Render the scene
         this.render();
-        window.addEventListener("resize", this.resize.bind(this));
+       // window.addEventListener("resize", this.resize.bind(this));
     }
     resize() {
         this.width = window.innerWidth;
@@ -266,8 +272,8 @@ async function streamWebcamThroughFaceLandmarker() {
             audio: false,
             video: {
                 facingMode: "user",
-                width: { min: 720, max: 1280 },
-                height: { min: 720, max: 1280},
+                width: { min: 720, max: 1920 },
+                height: { min: 720, max: 1920},
             }
         });
         const videoTrack = evt.getVideoTracks()[0];
