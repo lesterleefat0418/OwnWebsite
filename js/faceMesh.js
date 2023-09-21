@@ -69,7 +69,7 @@ async function createFaceLandmarker() {
         },
         outputFaceBlendshapes: true,
         runningMode,
-        numFaces: 1
+        numFaces: 2 
     });
     //demosSection.classList.remove("invisible");
 }

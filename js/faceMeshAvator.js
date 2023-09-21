@@ -281,8 +281,8 @@ async function streamWebcamThroughFaceLandmarker() {
         cameraWidth = settings.width;
         cameraHeight = settings.height;
     
-        console.log("Camera Width:", cameraWidth);
-        console.log("Camera Height:", cameraHeight);
+        //console.log("Camera Width:", cameraWidth);
+        //console.log("Camera Height:", cameraHeight);
         scene = new BasicScene(cameraWidth, cameraHeight);
         avatar = new Avatar("model/raccoon_head.glb", scene.scene);
 
@@ -303,7 +303,8 @@ async function runDemo() {
         },
         runningMode: "VIDEO",
         outputFaceBlendshapes: true,
-        outputFacialTransformationMatrixes: true
+        outputFacialTransformationMatrixes: true,
+        numFaces: 1
     });
     console.log("Finished Loading MediaPipe Model.");
 }

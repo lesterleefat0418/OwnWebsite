@@ -42,7 +42,7 @@ function startFaceMesh() {
   }
 
 faceMesh.setOptions({
-  maxNumFaces: 1,
+  maxNumFaces: 2,
   refineLandmarks: true,
   minDetectionConfidence: 0.5,
   minTrackingConfidence: 0.5,
