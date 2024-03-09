@@ -2,6 +2,9 @@ const siteName = "lesterleefat";
 const email = "leefat0418@gmail.com";
 const address = "Kwai Tsing, New Territories, Hong Kong";
 const phone = "+852 67464970";
+const yearExperience = "8";
+const completedProjects = "40";
+
 
 const siteName_elements = document.querySelectorAll("#siteName");
 siteName_elements.forEach(element => {
@@ -21,4 +24,19 @@ address_elements.forEach(element => {
 const phone_elements = document.querySelectorAll("#phone");
 phone_elements.forEach(element => {
     element.innerHTML = phone;
+});
+
+const yearExperience_elements = document.querySelectorAll("#yearExperience");
+yearExperience_elements.forEach(element => {
+    element.innerHTML = yearExperience;
+});
+
+const yearExperienceName_elements = document.querySelectorAll("#yearExperienceName");
+yearExperienceName_elements.forEach(element => {
+    element.innerHTML = yearExperience + " Years Experience";
+});
+
+const completedProjects_elements = document.querySelectorAll("#completedProjects");
+completedProjects_elements.forEach(element => {
+    element.innerHTML = completedProjects;
 });
