@@ -4,6 +4,7 @@ const address = "Kwai Tsing, New Territories, Hong Kong";
 const phone = "+852 67464970";
 const yearExperience = "8";
 const completedProjects = "40";
+const github = "https://github.com/lesterleefat0418?tab=repositories";
 
 
 const siteName_elements = document.querySelectorAll("#siteName");
@@ -24,6 +25,12 @@ address_elements.forEach(element => {
 const phone_elements = document.querySelectorAll("#phone");
 phone_elements.forEach(element => {
     element.innerHTML = phone;
+});
+
+const github_elements = document.querySelectorAll("#github");
+github_elements.forEach(element => {
+    element.setAttribute("href", github);
+    element.setAttribute("target", "_blank");
 });
 
 const yearExperience_elements = document.querySelectorAll("#yearExperience");
