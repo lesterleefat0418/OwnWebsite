@@ -11,6 +11,7 @@ window.onload = function() {
 function startGame() {
     setGame();
     document.getElementById("startBtn").disabled = true;
+    document.getElementById("goText").style.display = "none";
 }
 
 function restartGame() {
@@ -20,6 +21,9 @@ function restartGame() {
     gameOver = false;
     document.getElementById("score").innerText = score.toString();
     document.getElementById("restartBtn").disabled = true;
+    document.getElementById("failureText").style.display = "none";
+    document.getElementById("startBtn").disabled = false;
+    document.getElementById("goText").style.display = "block";
 }
 
 function clearBoard() {
@@ -97,5 +101,6 @@ function selectTile() {
         document.getElementById("score").innerText = "GAME OVER: " + score.toString(); //update score html
         gameOver = true;
         document.getElementById("restartBtn").disabled = false;
+        document.getElementById("failureText").style.display = "block";
     }
 }
