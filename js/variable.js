@@ -3,7 +3,7 @@ const email = "leefat0418@gmail.com";
 const address = "Kwai Tsing, New Territories, Hong Kong";
 const phone = "+852 67464970";
 const yearExperience = "8";
-const completedProjects = "40";
+const completedProjects = "45";
 const github = "https://github.com/lesterleefat0418?tab=repositories";
 
 
