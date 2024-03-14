@@ -2,10 +2,10 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     background: url("./Game-bg.jpg");
-    background-size: cover;
-}
-
-h1 {
+    background-size: auto;
+  }
+  
+  h1 {
     font-family: "Arial", sans-serif;
     font-size: 36px;
     font-weight: bold;
@@ -14,60 +14,55 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 20px;
-}
-
-h2#score {
+  }
+  
+  h2#score {
     font-family: "Helvetica", sans-serif;
     font-size: 24px;
     font-weight: normal;
     color: #333;
     text-align: center;
     margin-bottom: 30px;
-}
-
-#board {
-    width: 540px;
+  }
+  
+  #board {
+    width: 100%;
+    max-width: 540px;
     height: 540px;
-    /* background-color: green; */
-
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-
     background: url("./board.png");
     background-size: cover;
     border: 3px solid rgb(2, 2, 2);
     border-radius: 25px;
-}
-
-#board div {
-    /* board = 540 x 540, divide into 3x3 tiles --> 180 x 180 per div */
-    width: 180px; 
-    height: 180px;
+  }
+  
+  #board div {
+    width: 33.33%; /* Each table occupies one-third of the board width */
+    height: 33.33%; /* Each table occupies one-third of the board height */
     background-image: url("./table.png");
-    background-size: cover;
-}
-
-#board div img {
-    /* all img tags inside tiles */
+    background-size: contain;
+  }
+  
+  #board div img {
     width: 100px;
     height: 100px;
-
     user-select: none;
     -moz-user-select: none;
     -webkit-user-drag: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-}
-
-.button-container {
+  }
+  
+  .button-container {
     display: flex;
     justify-content: center;
     margin-top: 20px;
-}
-
-#startBtn,
-#restartBtn {
+  }
+  
+  #startBtn,
+  #restartBtn {
     padding: 10px 20px;
     margin-right: 30px;
     font-size: 18px;
@@ -76,37 +71,29 @@ h2#score {
     border: none;
     cursor: pointer;
     border-radius: 4px;
-}
-
-#restartBtn {
+  }
+  
+  #restartBtn {
     margin-right: 0;
-}
-
-#startBtn:hover,
-#restartBtn:hover {
+  }
+  
+  #startBtn:hover,
+  #restartBtn:hover {
     background-color: #45a049;
-}
-
-#startBtn:disabled,
-#restartBtn:disabled {
+  }
+  
+  #startBtn:disabled,
+  #restartBtn:disabled {
     background-color: gray;
     cursor: not-allowed;
-}
-
-/* Media Queries for Mobile */
-@media only screen and (max-width: 767px) {
+  }
+  
+  /* Media Queries */
+  @media only screen and (max-width: 767px) {
     #board {
       width: 100%;
-      height: auto;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-  
-    #board div {
-      width: 33.33%;
-      height: auto;
-      background-image: url("./table.png");
-      background-size: cover;
+      max-width: auto;
+      height: 400px;
     }
   
     #board div img {
