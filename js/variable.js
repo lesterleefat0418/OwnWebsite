@@ -1,5 +1,5 @@
 const siteName = "lesterleefat";
-const email = "leefat0418@gmail.com";
+const email = "leefat0418@gmail.com, lesterleefat@gmail.com";
 const address = "Kwai Tsing, New Territories, Hong Kong";
 const phone = "+852 67464970";
 const yearExperience = "8";
