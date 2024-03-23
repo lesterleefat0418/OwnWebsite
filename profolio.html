@@ -126,14 +126,40 @@
     </div>
     <!-- Page Header End -->
 
-    
+    <style>
+        #pdfContainer {
+            width: 100%;
+            margin: 0 auto; /* Center the container horizontally */
+        }
+      
+        #pagination {
+          position: relative;
+          display: flex;
+          justify-content: center;
+        }
+      
+        #prevPage,
+        #nextPage {
+          margin: 0 5px;
+          display: flex;
+          justify-content: center;
+        }
+      
+        @media (max-width: 768px) {
+          #pdfContainer {
+            max-width: 90%; /* Adjust the maximum width for smaller screens */
+          }
+        }
+      </style>
 
     <div class="container-fluid" data-wow-delay="0.1s">
-      <!--<iframe src="./Project_Profolio.pdf" width="100%" height="1080px"></iframe>-->
-      <object data="./Project_Profolio.pdf" type="application/pdf" width="100%" height="800px">
-        <p>Sorry, your browser doesn't support embedded PDFs. You can <a href="./Project_Profolio.pdf">download the PDF</a> instead.</p>
-      </object>
-    </div> 
+        <div id="pdfContainer"></div>
+        <div id="pagination">
+            <span id="pageInfo"></span>
+            <button id="prevPage">Previous</button>
+            <button id="nextPage">Next</button>
+        </div>
+    </div>
     
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
@@ -190,14 +216,16 @@
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+
     <script>
        // document.addEventListener('contextmenu', (event) => {
          //   event.preventDefault();
-        //});
+        //});       
     </script>
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script src="js/variable.js"></script>
+    <script src="js/loadPdf.js"></script>
 </body>
 
 </html>
