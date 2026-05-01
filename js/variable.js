@@ -2,9 +2,10 @@ const siteName = "lesterleefat";
 const email = "leefat0418@gmail.com, lesterleefat@gmail.com";
 const address = "Kwai Tsing, New Territories, Hong Kong";
 const phone = "+852 67464970";
-const yearExperience = "8";
-const completedProjects = "45";
+const yearExperience = "10";
+const completedProjects = "48";
 const github = "https://github.com/lesterleefat0418?tab=repositories";
+const linkedin = "https://www.linkedin.com/in/lester-lee-5154091ab/";
 
 
 const siteName_elements = document.querySelectorAll("#siteName");
@@ -32,6 +33,12 @@ github_elements.forEach(element => {
     element.setAttribute("href", github);
     element.setAttribute("target", "_blank");
 });
+
+const linkedin_elements = document.querySelectorAll("#linkedin");
+linkedin_elements.forEach(element => {
+    element.setAttribute("href", linkedin);
+    element.setAttribute("target", "_blank");
+}); 
 
 const yearExperience_elements = document.querySelectorAll("#yearExperience");
 yearExperience_elements.forEach(element => {
